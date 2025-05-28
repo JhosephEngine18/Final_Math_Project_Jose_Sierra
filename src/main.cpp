@@ -77,6 +77,7 @@ void Operations()
 void Restart()
     {
         bool Loop = true;
+        system("cls");
         int DecisionToRestart;    
         while (Loop)
         {
@@ -125,6 +126,8 @@ float SubtractandFactorialBetweenMaxandRequired()
     Result = Max_possibilities - Required_possibilities;
     float SubstractedResult = Result;
     float HoldResult = Result;
+    float SubstractedRequired_possibilities = Required_possibilities;
+    float HoldRequired_Posibilities = Required_possibilities;
 
 
     for (int i = 0; i < Result; i++)
@@ -213,6 +216,9 @@ int main()
         Required_possibilities = 1;
         FactRQ = Required_possibilities;
     }
+    cout << FactRQ;
+    cin.ignore();
+    cin.get();
 
     //These lines of code calculates the factorial of the total possibilities (N)
     float SubstractedMax_possibilities = Max_possibilities;
@@ -223,7 +229,9 @@ int main()
         FactMax = HoldMax_Posibilities * SubstractedMax_possibilities;
         HoldMax_Posibilities = FactMax;
     }
-    
+    cout << FactMax;
+    cin.ignore();
+    cin.get();
     switch (Decision)
     {
     case 1:
@@ -235,6 +243,7 @@ int main()
         permutations();
         break;
     }
+    cin.ignore();
     cin.get();
 
     //Restart Calculator?
