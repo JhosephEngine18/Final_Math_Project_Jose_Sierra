@@ -41,7 +41,7 @@ float Factorial(int N)
     float CycleN = N;
     if (N < 1)
     {
-        printinconsole("N cant be lower than 1");
+        printinconsole("The value cannot be lower than 1");
         cin.ignore();
         cin.get();
         exit(0);
