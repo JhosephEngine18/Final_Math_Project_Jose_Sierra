@@ -1,30 +1,72 @@
-
+/*
+Universidad Amerike
+Author: José Sierra
+Final Math Project
+Date: 28/05/25
+Description: This is my final math project
+*/
 #include <iostream>
 #include <limits>
 using namespace std;
 
-
-int Required_possibilities = 0;
-int Max_possibilities = 4;
-float FactRQ = 0;
-float FactMax = 0;
-float SubstractedRequired_possibilities = Required_possibilities;
-float HoldRequired_Posibilities = Required_possibilities;
 int Decision;
+float K_Keeper, N_Keeper;
 
-void Start()
+//Useful function to skip printing steps in the console
+void printinconsole(string text){cout << text << "\n";}
+
+//Function applying the combination formula
+void Combinations(float N, float K, float Subtraction)
 {
+    float Result;
+
+    Result = N/(K * Subtraction);
+    system("cls");
+    cout << "Result: " << Result << "\n";
+}
+//Function applying the permutation formula
+void Permutation(float N, float Subtraction)
+{
+    float Result;
+
+    Result = N/Subtraction;
+    system("cls");
+    cout << "Result: " << Result << "\n";
 }
 
-void Operations()
+//This function returns the factorial of each value entered in the parameters.
+float Factorial(int N)
 {
+    float Result = N;
+    float CycleN = N;
+    if (N < 1)
+    {
+        printinconsole("N cant be lower than 1");
+        cin.ignore();
+        cin.get();
+        exit(0);
+    }
+    
+    for (int i = 0; i < N-1; i++)
+    {
+        Result = Result * (CycleN-1);
+        CycleN = CycleN - 1;
+    }
+    
+    return Result;
+}
+
+//This function allows you to enter the value of N
+void Recieve_Value_N()
+{
+    float N, K;
     bool Loop = true;
     bool Loop2 = true;
     system("cls");
     while (Loop)
     {
         cout << "Input (N) Value:\n";
-        cin >> Max_possibilities;
+        cin >> N;
 
 
         if (cin.fail())
@@ -33,7 +75,7 @@ void Operations()
                 cin.ignore(numeric_limits<streamsize>::max(),'\n');
                 system("cls");
             }
-            if (Max_possibilities <= 0)
+            if (N <= 0)
             {
                 system("cls");
                 cout << "That is not a valid value\n";
@@ -46,11 +88,19 @@ void Operations()
             }
     }
 
-    while (Loop2)
+    N_Keeper = N;
+}
+
+//This function allows you to enter the value of K
+void Recieve_Value_K()
+{
+    float K;
+    bool Loop = true;
+    system("cls");
+    while (Loop)
     {
-        system("cls");
         cout << "Input (K) Value:\n";
-        cin >> Required_possibilities;
+        cin >> K;
 
 
         if (cin.fail())
@@ -59,41 +109,55 @@ void Operations()
                 cin.ignore(numeric_limits<streamsize>::max(),'\n');
                 system("cls");
             }
-            if (Required_possibilities <= 0)
+        if (K <= 0)
             {
                 system("cls");
                 cout << "That is not a valid value\n";
                 cin.ignore();
                 cin.get();
             }
-            else
+        else if (K > N_Keeper)
             {
-                Loop2 = false;
+                system("cls");
+                cout << "K cannot be bigger than N\n";
+                cin.ignore();
+                cin.get();
+            }
+        
+        else
+            {
+                Loop = false;
             }
     }
 
+    K_Keeper = K;
+
 }
 
-void Restart()
+int main()
+{    
+    bool MasterLoop = true;
+    while(MasterLoop)
     {
+        
+        float N, K, Subtraction;
         bool Loop = true;
-        system("cls");
-        int DecisionToRestart;    
         while (Loop)
-        {
-            cout << "Do you want to Calculate something else?\n";
-            cout << "1-Yes\n";
-            cout << "2-No\n";
-            cin >> DecisionToRestart;
-
-
+        {   
+            system("cls");
+            printinconsole("---------------------CALCULATOR---------------------");
+            printinconsole("What do you want to do?");
+            printinconsole("1-Combinations");
+            printinconsole("2-Permutations");
+            printinconsole("3-Leave");
+            cin >> Decision;
             if (cin.fail())
                 {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(),'\n');
                     system("cls");
                 }
-                if (Max_possibilities <= 0)
+                if (Decision <= 0 || Decision >= 4)
                 {
                     system("cls");
                     cout << "That is not a valid value\n";
@@ -104,150 +168,38 @@ void Restart()
                 {
                     Loop = false;
                 }
+
         }
 
-        switch (DecisionToRestart)
-        {
-        case 1:
-            Start();
-            break;
-        
-        case 2:
-            exit(0);
-            break;
-        }
-
-    }
-
-
-float SubtractandFactorialBetweenMaxandRequired()
-{
-    float Result = 0;
-    Result = Max_possibilities - Required_possibilities;
-    float SubstractedResult = Result;
-    float HoldResult = Result;
-    float SubstractedRequired_possibilities = Required_possibilities;
-    float HoldRequired_Posibilities = Required_possibilities;
-
-
-    for (int i = 0; i < Result; i++)
+    //This verifies the entered decision
+    if (Decision != 3)
     {
-        SubstractedResult = SubstractedResult - 1;
-        Result = HoldResult * SubstractedResult;
-        HoldResult = Result;
-
-        if (SubstractedResult == 1)
-        {
-            break;
-        }
+        Recieve_Value_N();
+        Recieve_Value_K();
+        N = Factorial(N_Keeper);
+        K = Factorial(K_Keeper);
+        Subtraction = Factorial(N_Keeper - K_Keeper);
     }
-    return Result;
-
-}
-
-void combinations()
-{
-    float Result = 0;
-    Result = FactMax / (FactRQ * SubtractandFactorialBetweenMaxandRequired());
-
-
-    cout << Result;
-}
-
-void permutations()
-{
-    float Result = 0;
-
-    Result = FactMax / SubtractandFactorialBetweenMaxandRequired();
-
-    cout << Result;
-}
-
-int main()
-{
-
-    bool Loop = true;
     
-    while (Loop)
-    {
-        system("cls");
-        cout << "|---------------------------------------------------CALCULATOR---------------------------------------------------|\n";
-        cout << "What do you want to do?\n";
-        cout << "1-Combinations\n";
-        cout << "2-Permutations\n";
-        cin >> Decision;
-
-
-        if (cin.fail())
-            {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(),'\n');
-                system("cls");
-            }
-            if (Decision <= 0 || Decision >= 6)
-            {
-                system("cls");
-                cout << "You have not selected any option\n";
-                cin.ignore();
-                cin.get();
-            }
-            else
-            {
-                Loop = false;
-            }
-
-    }
-
-    system("cls");
-    Operations();
-    
-    //These lines of code calculates the factorial of the total possibilities (N)
-    if (Required_possibilities > 1)
-    {
-        for (int i = 0; i < Required_possibilities - 1; i++)
-        {
-            SubstractedRequired_possibilities = SubstractedRequired_possibilities - 1;
-            FactRQ = HoldRequired_Posibilities * SubstractedRequired_possibilities;
-            HoldRequired_Posibilities = FactRQ;
-        }
-    }
-    else if (Required_possibilities <= 1)
-    {
-        Required_possibilities = 1;
-        FactRQ = Required_possibilities;
-    }
-    cout << FactRQ;
-    cin.ignore();
-    cin.get();
-
-    //These lines of code calculates the factorial of the total possibilities (N)
-    float SubstractedMax_possibilities = Max_possibilities;
-    float HoldMax_Posibilities = Max_possibilities;
-    for (int i = 0; i < Max_possibilities - 1; i++)
-    {
-        SubstractedMax_possibilities = SubstractedMax_possibilities - 1;
-        FactMax = HoldMax_Posibilities * SubstractedMax_possibilities;
-        HoldMax_Posibilities = FactMax;
-    }
-    cout << FactMax;
-    cin.ignore();
-    cin.get();
     switch (Decision)
     {
     case 1:
-        combinations();
+        Combinations(N, K, Subtraction);
+        cin.ignore();
+        cin.get();
         break;
     
     case 2:
-
-        permutations();
+        Permutation(N, Subtraction);
+        cin.ignore();
+        cin.get();
+        break;
+    case 3:
+        MasterLoop = false; //This breaks the loop
         break;
     }
-    cin.ignore();
-    cin.get();
-
-    //Restart Calculator?
-    Restart();
-
+    
+}
     return 0;
+
 }
