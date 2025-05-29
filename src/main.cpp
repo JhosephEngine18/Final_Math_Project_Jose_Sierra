@@ -99,6 +99,7 @@ void Recieve_Value_K()
     system("cls");
     while (Loop)
     {
+        system("cls");
         cout << "Input (K) Value:\n";
         cin >> K;
 
