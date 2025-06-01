@@ -61,7 +61,6 @@ void Recieve_Value_N()
 {
     float N, K;
     bool Loop = true;
-    bool Loop2 = true;
     system("cls");
     while (Loop)
     {
